@@ -7,8 +7,8 @@ Analysis |  需求分析 (包括学习新技术) | 180 | 150
 Design Spec |  生成设计文档 | 60 | 50
 Design Review | 设计复审 | 20 | 20
 Coding Standard | 代码规范 (为目前的开发制定合适的规范) | 10 | 5
-Design | 具体设计 | 30 | 
-Coding | 具体编码 | 90 | 
+Design | 具体设计 | 30 | 30
+Coding | 具体编码 | 90 | 80
 Code Review | 代码复审 | 30 | 
 Test | 测试（自我测试，修改代码，提交修改）| 120 | 
 **Reporting** | **报告**
