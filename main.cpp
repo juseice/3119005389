@@ -14,9 +14,16 @@ vector<string> all;
 std::vector<std::string> textSegmentation(std::string s)
 {
 	vector<string> res;
+	/*
 	for (auto it : s)
 	{
 		res.push_back(string(1,it));	//unigram
+	}
+	*/
+	int n(s.size());
+	for (int i = 0; i < n - 1; ++i)
+	{
+		res.push_back(s.substr(i, 2));	//bigram
 	}
 	return res;
 }
