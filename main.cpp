@@ -1,4 +1,5 @@
 #include<cstdio>
+#include<cstdlib>
 #include<iostream>
 #include<fstream>
 #include<vector>
@@ -21,6 +22,7 @@ std::vector<std::string> textSegmentation(std::string s)
 	}
 	*/
 	int n(s.size());
+	if (n == 1) res.push_back(s.substr(0, 1));
 	for (int i = 0; i < n - 1; ++i)
 	{
 		res.push_back(s.substr(i, 2));	//bigram
@@ -35,7 +37,7 @@ std::vector<int> vecConstruct(std::vector<std::string> vec)
 	for (auto it : vec)
 	{
 		int id(std::lower_bound(refer.begin(), refer.end(), it) - refer.begin());	//get the position of 1 of this charater
-		++res[id];
+		if (id >= 0 && id < res.size()) ++res[id];
 	}
 	return res;
 }
@@ -55,29 +57,34 @@ double calcDistance(std::vector<int> vec1,std::vector<int> vec2)	//Euler distanc
 int main(int argc, char** argv)
 {
 	char buff[1024];
-	if (argc < 4)
+	if (argc < 4)					//Exception: Not enough Arguments.
 	{
 		puts("Not Enough Arguments!");
 		return 0;
 	}
-	else if (argc > 4)
+	else if (argc > 4)				//Exception: Too many Arguments.
 	{
-		puts("Too many Arguments!");
+		puts("Too Many Arguments!");
 		return 0;
 	}
 	std::ifstream fori(argv[1]);
-	if (!fori.is_open())
+	if (!fori.is_open())			//Exception: file 1 cannot open.
 	{
 		printf("%s is not exist or cannot open!",argv[1]);
 		return 0;
 	}
 	std::ifstream fdis(argv[2]);
-	if (!fdis.is_open())
+	if (!fdis.is_open())			//Exception: file 2 cannot open.
 	{
 		printf("%s is not exist or cannot open!", argv[2]);
 		return 0;
 	}
 	std::ofstream fout(argv[3]);
+	if (!fdis.is_open())			//Exception: file 3 cannot open.
+	{
+		printf("%s is not exist or cannot open!", argv[3]);
+		return 0;
+	}
 	string ori, dis;
 	while (fori.getline(buff, 1024))
 	{
@@ -87,16 +94,28 @@ int main(int argc, char** argv)
 	{
 		dis += buff;
 	}
+	fout << "Comparing " << argv[1] << " and " << argv[2] << "...\n";
 	/*	test if i/o works properly
 	fout << ori + dis;
 	std::cout << ori + dis;
 	*/
 //	string ori("Hello."), dis("Greeting.");
 	auto vsori(textSegmentation(ori)), vsdis(textSegmentation(dis));
+	if (vsori.empty())			//Exception: file 1 is empty.
+	{
+		printf("%s is empty!", argv[1]);
+		return 0;
+	}
+	if (vsdis.empty())			//Exception: file 2 is empty.
+	{
+		printf("%s is empty!", argv[2]);
+		return 0;
+	}
 
 	for (auto it : vsori) refer.push_back(it), all.push_back(it);
 	for (auto it : vsdis) refer.push_back(it), all.push_back(it);			//join two set
 	std::sort(refer.begin(), refer.end());
+
 	refer.erase(std::unique(refer.begin(), refer.end()), refer.end());		//Discretization
 	auto vecAll(vecConstruct(all));
 	double overall(calcDistance(vecAll, vector<int>(refer.size(), 0)));
@@ -104,8 +123,10 @@ int main(int argc, char** argv)
 	auto vecori(vecConstruct(vsori)), vecdis(vecConstruct(vsdis));
 
 	double ori_0(calcDistance(vecori,vector<int> (refer.size(),0))), ori_dis(calcDistance(vecori,vecdis));
-	double ans(1.0 - ori_dis / ori_0);
-	fout.precision(0.01);
+	double ans;
+	if (ori_0 < 0.0000001) ans = 0.0;			//Exception: divide 0
+	else ans = 1.0 - ori_dis / ori_0;
+	if (ans < 0.0000001) ans = 0.0;
 	fout << "Text similarity: \n";
 	fout << std::fixed << std::setprecision(2);
 	fout << "\t" << ans * 100.00 << "%";
