@@ -1,0 +1,3 @@
+Comparing f3.txt and s3.txt...
+Text similarity: 
+	74.73%

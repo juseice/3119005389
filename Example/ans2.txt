@@ -1,0 +1,3 @@
+Comparing f2.txt and s2.txt...
+Text similarity: 
+	0.00%

@@ -1,0 +1,3 @@
+Comparing orig.txt and orig_0.8_dis_15.txt...
+Text similarity: 
+	85.55%
