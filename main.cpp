@@ -1,3 +1,4 @@
+#pragma GCC optimize(2)
 #include<cstdio>
 #include<cstdlib>
 #include<iostream>
@@ -112,13 +113,11 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	for (auto it : vsori) refer.push_back(it), all.push_back(it);
-	for (auto it : vsdis) refer.push_back(it), all.push_back(it);			//join two set
+	for (auto it : vsori) refer.push_back(it);
+	for (auto it : vsdis) refer.push_back(it);			//join two set
 	std::sort(refer.begin(), refer.end());
 
 	refer.erase(std::unique(refer.begin(), refer.end()), refer.end());		//Discretization
-	auto vecAll(vecConstruct(all));
-	double overall(calcDistance(vecAll, vector<int>(refer.size(), 0)));
 
 	auto vecori(vecConstruct(vsori)), vecdis(vecConstruct(vsdis));
 
