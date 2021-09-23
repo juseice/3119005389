@@ -12,7 +12,7 @@ Coding | 具体编码 | 90 | 80
 Code Review | 代码复审 | 30 | 45
 Test | 测试（自我测试，修改代码，提交修改）| 120 | 150
 **Reporting** | **报告**
-Test report | 测试报告 | 60 | 
-Size Measurement | 计算工作量 | 20 | 
-Postmortem & Process Improvement |  事后总结, 并提出过程改进计划 | 30 | 
-Total | 合计 | 680 | 
+Test report | 测试报告 | 60 | 70
+Size Measurement | 计算工作量 | 20 | 10
+Postmortem & Process Improvement |  事后总结, 并提出过程改进计划 | 30 | 20
+Total | 合计 | 680 | 655
